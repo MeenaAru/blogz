@@ -1,9 +1,15 @@
 <!doctype html>
 <html>
     <head>
-        <a href='/'>Main Blog</a>
-        <a href='/newpost'>Add a Post</a>
-
+        <ul id="blog">
+            <li><a href='/'>Home</a></li>
+            <li><a href='/blog'>All Posts</a></li>
+            <li><a href='/newpost'>Add a Post</a></li>
+        </ul>
+        <ul id="login">
+            <li><a href='/login'>Login </a></li>
+            <li><a href='/logout'>Logout </a></li>
+        </ul>
         <title>{{pgtitle}}</title>
         <style type="text/css">
             .error {
@@ -11,21 +17,73 @@
             }
             label {
                font-weight: bold; display: block; width: 150px; align-self: left; padding: 20px 20px;
-            margin: 8px 0
+            margin: 2px ;
             }
+            body{
+            background-color: aliceblue;
+             border-radius: 25px;
+             padding: 25px;
+             margin: 25px; 
+             }
+
            label:after { content: ": " }
-           input[type=text] {
-            padding: 10px 10px;
-            margin: 10px 0;
+           table{
+               background: cadetblue;
+               border-block-end-style: outset;
+           }
+           tr {
+            padding: 2px 2px;
+            margin: 8px 0;
             box-sizing: border-box;
+            align-items: center;
+           }
+           #blog li {
+            list-style-type: none;
+            float: left;
+            margin: 10;
+            padding: 10;
+            width:72px;
+            height:22px;
+            background-color:pink;
+            border-block-end-style: groove;
             }
-            
+
+            #login li {
+            list-style-type: none;
+            float: right;
+            margin: 10;
+            padding: 10;
+            background-color:pink;
+            width:72px;
+            height:22px;
+            border-block-end-style: groove;
+            }
+            blog li a {
+            display: block;
+            color: rgb(49, 28, 28);
+            text-align: center;
+            padding: 50px 50px;
+            text-decoration-color: rgb(238, 255, 205);
+            text-decoration: none;
+            }
+
+            /* Change the link color to #111 (black) on hover */
+            blog li a:hover {
+            background-color: #111;
+            }
         </style>
+        <br>
+        <center><h1>{{pgtitle}}</h1></center>
     </head>
     <body>
-
-    {% block content %}
-    {% endblock %}
-
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        <ul>
+            {% for category,message in messages %}
+                <li class="{{category}}">{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endwith %}
+        {% block content %}
+        {% endblock %}
     </body>
 </html>
